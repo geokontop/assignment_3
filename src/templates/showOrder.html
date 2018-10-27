@@ -1,0 +1,57 @@
+<h1>Review order and accept </h1>
+
+<div class="ctaWrapper">
+    
+    <div id="orderReview"> 
+        Loading ... 
+        <br><br><br>
+    </div>
+    <div  style="margin-top: 30px">
+      <h2 style="display:inline; ">Total $ </h2><h2 id='total' style="display:inline; ">Loading ...</h2>
+    </div>
+        
+    <div id="buttonPay" style="margin-top: 10px; display:none">
+      <button id="customButton" class="cta green">Purchase</button>
+    </div>    
+</div>
+
+<!-- Stripe client -->
+<script>
+var handler = StripeCheckout.configure({
+  key: 'pk_test_ivA98xotM2gLkH4kMMbZCq0s',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    payload = {"stripeToken": token.id};
+    // Pass the stripeToken to the server to submit it to stripe 
+    app.client.request(undefined,'api/order','POST',undefined,payload,(statusCode,responsePayload)=>{
+  
+      if(statusCode == 200){
+      // Send the user to the thank you page
+        window.location = 'transaction';
+      }else {
+        console.log('Transaction proccess malfunction')
+      }
+    })
+  }
+});
+
+document.getElementById('customButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+  var d = new Date();
+  var t = d.toLocaleTimeString();
+  handler.open({
+    name: 'Pizza Napolitana',
+    description: 'Your order at ' + t,
+    amount: Number(document.getElementById('total').innerHTML)*100
+  });
+  e.preventDefault();
+  console.log(e)
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>

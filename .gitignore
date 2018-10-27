@@ -1,0 +1,16 @@
+
+
+# https
+/https
+
+# keys stripe, mailgun
+src/private.js
+
+# data
+.data/orders
+.data/shoppingCarts
+.data/users
+.data/tokens
+
+
+

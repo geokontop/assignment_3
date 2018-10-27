@@ -1,0 +1,27 @@
+<h1>Create an account</h1>
+<h2>Signup is easy and it only takes a few seconds</h2>
+
+<div class="formWrapper">
+    <form id="accountCreate" action="/api/users" method="POST">
+        <div class="formError"></div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Full Name</div>
+            <input type="text" name="name" placeholder="John Smith" /> 
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Street Address</div>
+            <input type="text" name="address" placeholder="Your addres here" /> 
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Email</div>
+            <input type="text" name="email" placeholder="someone@some.com" /> 
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Password</div>
+            <input type="password" name="password" placeholder="your password" /> 
+        </div>
+        <div class="inputWrapper ctaWrapper">
+            <button type="submit" class="cta blue">Get started</button>
+        </div>
+    </form>
+</div>
