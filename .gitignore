@@ -7,10 +7,7 @@
 src/private.js
 
 # data
-.data/orders/
-.data/shoppingCarts/
-.data/users/
-.data/tokens/
+
 
 
 
