@@ -457,20 +457,20 @@ app.loadShowCartPage = function(){
                         element.ingredients +'</td><td>' + element.price +'</td><td>' + 
                         element.quantity +'</td><td>' + element.subtotal +'</td>' + 
                         '<td><button class="ctb red" type="button" onclick="app.removePizza(\''+
-                        element.id +'\')">X</button></td></tr>'
+                        element.id +'\')">X</button></td></tr>';
         });
-        tableContent += '<tr><td colspan= 7 ><hr> </td></tr>'
+        tableContent += '<tr><td colspan= 7 ><hr> </td></tr>';
         tableContent += '<tr><td> </td><td> </td><td> </td><td> </td><td> <b>Total</b> </td><td>' 
-                        + responsePayload.total +'</td></tr>'
+                        + Math.round(responsePayload.total*100)/100 +'</td></tr>';
 
-        tableContent += ' </table>'    
+        tableContent += ' </table>';
 
         // Write the html string to the html element.. Add buttons to order or continue shopping
         table.innerHTML = tableContent +
         '<hr><div class="ctaWrapper">' +
           '<a class="cta blue" href="pizzas/all">More pizza</a> ' +
           '<a class="cta green" href="showOrder">Procced to Checkout</a>' +
-        '</div>'
+        '</div>';
 
       }else{
         // Cart is empty
@@ -501,7 +501,7 @@ app.loadShowOrderPage = function(){
         const htmlString = app.makeHtmlTable(responsePayload.cart,[1,3,4,5,6]);
         // Write to the html elements
         document.getElementById('orderReview').innerHTML = htmlString;
-        document.getElementById('total').innerHTML = responsePayload.total;
+        document.getElementById('total').innerHTML = Math.round(responsePayload.total*100)/100;
         // Show the stripe pay button 
         document.getElementById('buttonPay').style.display = "block"
       }else{
@@ -525,7 +525,7 @@ app.loadThankYouPage = function(){
           // Write to the document 
           if(htmlString){
             document.getElementById('show-order').innerHTML = htmlString;
-            document.getElementById('total').innerHTML = 'Total $' + responseCart.total;
+            document.getElementById('total').innerHTML = 'Total $' + Math.round(responseCart.total*100)/100;
           }else{
             document.getElementById('show-order').innerHTML = ''
             document.getElementById('header1').innerHTML = 'We apologize for that'

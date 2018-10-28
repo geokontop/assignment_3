@@ -39,8 +39,8 @@ var handler = StripeCheckout.configure({
 
 document.getElementById('customButton').addEventListener('click', function(e) {
   // Open Checkout with further options:
-  var d = new Date();
-  var t = d.toLocaleTimeString();
+  const d = new Date();
+  const t = d.toLocaleTimeString();
   handler.open({
     name: 'Pizza Napolitana',
     description: 'Your order at ' + t,

@@ -137,14 +137,19 @@ helpers.getStaticAsset = (fileName, callback)=>{
 
 // Forms a message in html to be sent via mailgun. A table populated with cart details and the total cost. 
 helpers.renderEmailMsg = (cartDetails)=>{
-    let tableHtml = '<h1> Your order </h1>';
-    tableHtml += '<table><tr><th style="text-align:center;">Pizza Name</th><th style="text-align:center;">Size</th><th style="text-align:center;">Price</th>' +
+    const d = new Date();
+    const t = d.toLocaleTimeString();
+    let tableHtml = '<h1> Pizza Napolitana </h1>';
+    tableHtml += '<h2> Your order at '+ t +'</h2>';
+    tableHtml += '<table  width="600" style="border:1px solid #333">'+
+                '<tr style="background-color:#aaaaaa;"><th style="text-align:center;">Pizza Name</th><th style="text-align:center;">Size</th><th style="text-align:center;">Price</th>' +
                 '<th style="text-align:center;">Quantity</th><th style="text-align:center;">subtotal</th></tr>'
     cartDetails.cart.forEach(element=>{
-        tableHtml += '<tr><td style="text-align:center;">' + element.name+'</td><td style="text-align:center;">'+ element.size+'</td><td style="text-align:center;">'+ element.price+'</td><td style="text-align:center;">'+
-            element.quantity+'</td><td style="text-align:center;">'+ element.subtotal+'</td><tr>'
+        tableHtml += '<tr><td  align="center" style="text-align:center;">' + element.name+'</td><td  align="center" style="text-align:center;">'+ element.size+'</td><td  align="center" style="text-align:center;">'+ element.price+'</td><td  align="center" style="text-align:center;">'+
+            element.quantity+'</td><td  align="center" style="text-align:center;">'+ element.subtotal+'</td><tr>'
     })
-    tableHtml += '<h1> Total $'+cartDetails.total+' </h1>';
+    tableHtml += '</table>'
+    tableHtml += '<h2 style="padding-left:200px;"> Total $'+Math.round(cartDetails.total*100)/100+' </h2>';
     return tableHtml
 }
 
