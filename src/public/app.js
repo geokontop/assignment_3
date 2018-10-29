@@ -493,25 +493,30 @@ app.loadShowCartPage = function(){
 
 // Load the show order page 
 app.loadShowOrderPage = function(){
-  // Request the cart details to render the order elements
-  app.client.request(undefined,'api/carts','GET',undefined,undefined,function(statusCode,responsePayload){
-    if(statusCode == 200){
-      if(responsePayload.cart.length>0){
-        // Contents exist. Make an html table string with the desired attributes and order
-        const htmlString = app.makeHtmlTable(responsePayload.cart,[1,3,4,5,6]);
-        // Write to the html elements
-        document.getElementById('orderReview').innerHTML = htmlString;
-        document.getElementById('total').innerHTML = Math.round(responsePayload.total*100)/100;
-        // Show the stripe pay button 
-        document.getElementById('buttonPay').style.display = "block"
-      }else{
-        // Nothing inside the cart
-        document.getElementById('orderReview').innerHTML = '<h2>Nothing to purchase </h2>'  
-        document.getElementById('total').innerHTML = '';
+  if(app.config.sessionToken){
+    // Request the cart details to render the order elements
+    app.client.request(undefined,'api/carts','GET',undefined,undefined,function(statusCode,responsePayload){
+      if(statusCode == 200){
+        if(responsePayload.cart.length>0){
+          // Contents exist. Make an html table string with the desired attributes and order
+          const htmlString = app.makeHtmlTable(responsePayload.cart,[1,3,4,5,6]);
+          // Write to the html elements
+          document.getElementById('orderReview').innerHTML = htmlString;
+          document.getElementById('total').innerHTML = Math.round(responsePayload.total*100)/100;
+          // Show the stripe pay button 
+          document.getElementById('buttonPay').style.display = "block"
+        }else{
+          // Nothing inside the cart
+          document.getElementById('orderReview').innerHTML = '<h2>Nothing to purchase </h2>'  
+          document.getElementById('total').innerHTML = '';
+        }
+        
       }
-      
-    }
-  })
+    })
+  }else{
+    window.location = 'session/create';
+  }
+  
 };
 
 // Load the thank you page and order review. End of the story
@@ -642,6 +647,7 @@ app.removePizza = (id)=>{
   app.client.request(undefined,'api/carts','DELETE',queryStringObject,undefined,function(statusCode,responsePayload){
     if(statusCode == 200){
       window.location = '/showCart';
+      
     } 
   });
 }

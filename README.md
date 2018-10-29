@@ -19,7 +19,7 @@
 
 1. Place an order (with fake credit card credentials), and receive an email receipt
     - payment with stripe
-    - email with mailgun
+    - show order review
     - show the transaction outcome
 
 ## API 
